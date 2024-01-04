@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export const fetchProducts = createAsyncThunk('allproducts/fetchproducts',async()=>{
     const response = await axios.get('https://dummyjson.com/products')
+    localStorage.setItem("products",JSON.stringify(response.data.products)) //to strore data permenantly
     return response.data.products
     // return axios.get('https://dummyjson.com/products').then(res=>res.data.products)
 })

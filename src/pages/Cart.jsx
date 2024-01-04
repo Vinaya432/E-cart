@@ -1,11 +1,14 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
-
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 function Cart() {
+
+  const cart=useSelector((state)=>state.cartReducer)
   return (
     <div className='container mt-5'>
-      <div className="row mt-5">
+      { cart?.length>0?<div className="row mt-5">
         <div className="col-lg-8 mt-5">
         <Table className='shadow'>
           <thead>
@@ -18,13 +21,15 @@ function Cart() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td><img style={{height:'100px',width:'100px'}} src="" alt="product" /></td>
-              <td></td>
-              <td></td>
+            { cart.map((item,index)=>(
+              <tr key={index}>
+              <td>{index+1}</td>
+              <td>{item.title}</td>
+              <td><img style={{height:'100px',width:'100px'}} src={item.thumbnail} alt="product" /></td>
+              <td>$ {item.price}</td>
               <td><button className='btn'><i className="fa-solid fa-trash text-danger"></i></button></td>
             </tr>
+            )) }
           </tbody>
         </Table>
         </div>
@@ -38,7 +43,14 @@ function Cart() {
             </div>
           </div>
         </div>
-      </div>
+      </div> :
+      <div className='text-center mt-5'>
+      <img src="https://metro-website-images.s3.eu-west-1.amazonaws.com/plugins/user/images/emptycart.png" alt="" />
+      <h1>Your Cart is Empty</h1>
+      <Link to={'/'} className='btn btn-sucess'>Click here to Shop More</Link>
+
+    </div>
+      }
 
     </div>
   )
