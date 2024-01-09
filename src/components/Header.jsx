@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { productSearch } from '../Redux/Slices/productSlice';
 
 
-function Header() {
+function Header({insideHome}) {
   
   const dispatch= useDispatch()
 
@@ -29,7 +29,7 @@ function Header() {
 
   return (
     <>
-      <Navbar className="bg-info position-fixed top-0 w-100 mb-5">
+      <Navbar className="position-top top-0 w-100 mb-5 bg-info">
         <Container>
           <Navbar.Brand >
           <Link to={'/'} style={{textDecoration:'none',color:'white'}}>
@@ -42,9 +42,9 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link className='me-lg-5'>
+              {insideHome&&<Nav.Link className='me-lg-5'>
                   <input onChange={e=>dispatch(productSearch(e.target.value.toLowerCase()))} className='form-control' type="text" placeholder='Search'/>
-              </Nav.Link>
+              </Nav.Link>}
               <Nav.Link className='btn  rounded '>
                <Link to={'/wishlist'} className='d-flex align-items-center' style={{color:'white',textDecoration:'none'}}> 
                   <i className="fa-solid fa-heart text-danger " ></i>WishList
